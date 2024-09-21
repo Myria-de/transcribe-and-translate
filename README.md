@@ -26,8 +26,7 @@ Für die Transkription einer in Audacity geöffneten Audio-Datei markieren Sie d
 
 ![Audacity_OpenVINO](https://github.com/user-attachments/assets/8b77a212-61f7-491b-bd1c-67aca2ce1da5)
 **Zusätzliches Script**: Mit deep-translator (siehe nächster Abschnitt) lässt sich der in Audacity transkribierte Text übersetzen. Die Audacity-Dateien enthalten allerdings Timecodes vpr den einzelnen Sätzen, die die Übersetzung stören können. Das Script "translate_audacity_files.py" entfernt die Timecodes und übersetzt die Dateien. Kommentare im Script erläutern die Konfiguration.
-
-
+![Audacity_Transcoding](https://github.com/user-attachments/assets/e562d1e6-433d-4d8d-a1fe-709db8abca2c)
 
 ## Transkribieren und übersetzen mit Whisper und deep-translator
 Wer mehrere Audio-Dateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
@@ -43,16 +42,6 @@ Starten Sie das Script im Installationsorder ("deep-translator/bin") mit
 ./transcribe_translate.py
 ```
 Beim ersten Start lädt Whisper das konfigurerte Modell herunter. Danach transkribiert das Script die Audio-Dateien aus dem Quellordner und speichert die übersetzten Dateien im Zielordner.
-
-
-
-
-
-
-
-
-
-
 
 
 

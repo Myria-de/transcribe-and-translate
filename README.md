@@ -15,15 +15,14 @@ Hinter "AUDACITY_VERSION" passen Sie bei Bedarf die Audacity-Version an. Geteste
 
 All Download URLs im Script sind Stand September 2024. Wenn neuere Versionen verfügbar sind, müssen Sie die Download-Adressen wahrscheinlich anpassen.
 
-Die Installation ist standardmäßig halbwegs portabel. Audacity lässt sich aus dem Ordner "audacity/audacity-build/Release/bin" über das Script "start_audacity.sh" starten. Ein Programmstarter für den Desktop erstellt das Script unter ".local/share/applications/audacity.desktop"
-
-Die AI-Modelle müssen im Ordner "/usr/local/lib/openvino-models" liegen. Für den Kopiervorgang werden root-Rechte angefordert.
+Die Installation ist standardmäßig halbwegs portabel. Audacity lässt sich aus dem Ordner "audacity/audacity-build/Release/bin" über das Script "start_audacity.sh" starten. Ein Programmstarter für den Desktop erstellt das Script unter ".local/share/applications/audacity.desktop". Die AI-Modelle müssen jedoch im Ordner "/usr/local/lib/openvino-models" liegen. Für den Kopiervorgang werden root-Rechte angefordert.
 
 Nach dem ersten Start von Audacity gehen Sie auf "Bearbeiten -> Einstellungen -> Module". Hinter "mod-openvino" stellen Sie "Aktiviert" ein. Danach starten Sie Audacity neu. 
 
 Zu den Funktionen des OpenVINO-Plugins siehe https://www.audacityteam.org/blog/openvino-ai-effects.
 
 Für die Transkription einer in Audacity geöffneten Audio-Datei markieren Sie die Spur (Strg-A) und gehen auf "Analyse -> OpenVION Whisper Transcription..". Wählen Sie das gewünschte Whisper-Modell und klicken Sie auf "Anwenden". Die Transkription landet in einer Label-Spur. Klicken Sie diese an und gehen Sie auf "Datei -> Andere exportieren -> Textmarken exportieren", um die Transkription in einer Textdatei zu speichern.
+**Hinweis**: OpenVINO-Whisper kann zahlreiche Sprachen aus den Audio-Dateien verarbeiten. Die Transkription erfolgt aber immer nur in die englische Sprache.
 
 ![Audacity_OpenVINO](https://github.com/user-attachments/assets/8b77a212-61f7-491b-bd1c-67aca2ce1da5)
 **Zusätzliches Script**: Mit deep-translator (siehe nächster Abschnitt) lässt sich der in Audacity transkribierte Text übersetzen. Die Audacity-Dateien enthalten allerdings Timecodes vpr den einzelnen Sätzen, die die Übersetzung stören können. Das Script "translate_audacity_files.py" entfernt die Timecodes und übersetzt die Dateien. Kommentare im Script erläutern die Konfiguration.

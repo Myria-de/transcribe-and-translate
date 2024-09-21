@@ -23,7 +23,10 @@ Nach dem ersten Start von Audacity gehen Sie auf "Bearbeiten -> Einstellungen ->
 
 Zu den Funktionen des OpenVINO-Plugins siehe https://www.audacityteam.org/blog/openvino-ai-effects.
 
+Für die Transkription einer in Audacity geöffneten Audio-Datei markieren Sie die Spur (Strg-A) und gehen auf "Analyse -> OpenVION Whisper Transcription..". Wählen Sie das gewünschte Whisper-Modell und klicken Sie auf "Anwenden". Die Transkription landet in einer Label-Spur. Klicken Sie diese an und gehen Sie auf "Datei -> Andere exportieren -> Textmarken exportieren", um die Transkription in einer Textdatei zu speichern.
+
 ![Audacity_OpenVINO](https://github.com/user-attachments/assets/8b77a212-61f7-491b-bd1c-67aca2ce1da5)
+**Zusätzliches Script**: 
 
 ## Transkribieren und übersetzen mit Whisper und deep-translator
 Wer Audio-Dateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
@@ -39,7 +42,9 @@ Starten Sie das Script im Installationsorder ("deep-translator/bin") mit
 ```
 ./transcribe_translate.py
 ```
-Beim ersten Start lädt Whisper das konfigurerte Modell herunter.
+Beim ersten Start lädt Whisper das konfigurerte Modell herunter. Danach transkribiert das Script die Audio-Dateien aus dem Quellordner und speichert die übersetzten Dateien im Zielordner.
+
+
 
 
 

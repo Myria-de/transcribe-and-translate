@@ -21,16 +21,29 @@ Die AI-Modelle müssen im Ordner "/usr/local/lib/openvino-models" liegen. Für d
 
 Nach dem ersten Start von Audacity gehen Sie auf "Bearbeiten -> Einstellungen -> Module". Hinter "mod-openvino" stellen Sie "Aktiviert" ein. Danach starten Sie Audacity neu. 
 
-Zu den Funktionen des OpenVIO-Plugins siehe https://www.audacityteam.org/blog/openvino-ai-effects.
+Zu den Funktionen des OpenVINO-Plugins siehe https://www.audacityteam.org/blog/openvino-ai-effects.
 
 ![Audacity_OpenVINO](https://github.com/user-attachments/assets/8b77a212-61f7-491b-bd1c-67aca2ce1da5)
 
 ## Transkribieren und übersetzen mit Whisper und deep-translator
 Wer Audio-Dateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
 
-Die Installation in einer virtuellen Ptyhon-Umgebung erfolgt mit dem Script "install-deep-translator.sh". Das Script richtet die nötigen Pakete ein. In der Python-Umgebung erledigt das Script "transcribe_translate.py" die Aufgabe. Öffnen Sie es zuerst in einem Editor und passen Sie die Konfiguration an.
+Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "install-deep-translator.sh". Das Script richtet die nötigen Pakete ein. In der Python-Umgebung erledigt das Script "transcribe_translate.py" die Aufgabe. Öffnen Sie es zuerst in einem Editor und passen Sie die Konfiguration an.
 
-Die Variable "Source_Path" legt den Ordner fest, in dem die Audio-Dateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Weitere Variablen bestimmen die Zielsprache und das Ausagabeformat (in der Regel "txt"). Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfoldern aber mehr Speicher und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen ausreichen. 
+Die Variable "Source_Path" legt den Ordner fest, in dem die Audio-Dateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Weitere Variablen bestimmen die Zielsprache und das Ausagabeformat (in der Regel "txt"). Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfoldern aber mehr RAM, Platz auf der Festplatte und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen ausreichen.
+
+Für die Übersetzung ist GoogleTranslator vorkonfiguriert. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert.
+
+
+Starten Sie das Script im Installationsorder ("deep-translator/bin") mit
+```
+./transcribe_translate.py
+```
+Beim ersten Start lädt Whisper das konfigurerte Modell herunter.
+
+
+
+
 
 
 

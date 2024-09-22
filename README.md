@@ -11,6 +11,8 @@ sh ./build_audacity.sh
 
 **Wichtig**: Passen Sie im Script hinter "VERSION" die Version des Betriebssystems an. Verwenden Sie "22" für Ubuntu 22.04 oder Linux Mint 21.x. Verwenden Sie "24" für Ubuntu 24.04 oder Linux Mint 22.x.
 
+Das Script verwendet weitestgehend die Anleitung, die unter https://github.com/intel/openvino-plugins-ai-audacity/blob/main/doc/build_doc/linux/README.md zu finden ist.
+
 Hinter "AUDACITY_VERSION" passen Sie bei Bedarf die Audacity-Version an. Getestet habe ich das Script mit Audacity 3.6.4.
 
 All Download URLs im Script sind Stand September 2024. Wenn neuere Versionen verfügbar sind, müssen Sie die Download-Adressen wahrscheinlich anpassen.

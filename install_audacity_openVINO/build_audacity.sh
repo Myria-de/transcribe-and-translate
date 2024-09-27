@@ -232,7 +232,7 @@ sudo ldconfig
 echo Build and install Audacity and OpenVINO plugin...
 build
 #echo Install Models...
-# In case of update comment next line
+# In case of update oor rebuild comment next line
 models_install
 echo portable installation
 portable_installation

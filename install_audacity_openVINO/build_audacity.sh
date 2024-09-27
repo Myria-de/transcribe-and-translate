@@ -239,5 +239,5 @@ portable_installation
 # or
 # usr_local_installation
 echo Done.
-echo Start the audacity binary from $WORKDIR/audacity-build/Release/bin
+echo Start the audacity binary with $WORKDIR/audacity-build/Release/bin/start_audacity.sh
 

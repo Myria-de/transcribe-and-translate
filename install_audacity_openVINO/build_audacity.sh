@@ -1,12 +1,17 @@
 #!/bin/bash
 # Audacity OpenVINO module build for Linux (Ubuntu 22.04/24.04)
 
+# Configuraton
 # Ubuntu version 22 (jammy) or 24 (noble)
-VERSION=24
+VERSION=22
 AUDACITY_VERSION=3.6.4
-# check also openVINO version in line 101
+PORTABLE_INSTALL_DIR=$HOME/Audacity.bin
+# in case of an installation in /usr/local/lib leave the following variable empty
+# and change from portable_installation to usr_local_installation at the end of this script
+BULD_PORTABLE="-DCMAKE_INSTALL_PREFIX=$PORTABLE_INSTALL_DIR"
 # Create workdir if not exist
 WORKDIR=$HOME/audacity
+# Configuration end
 if [ ! -e $WORKDIR ]
 then 
 mkdir -p $WORKDIR
@@ -89,7 +94,7 @@ mkdir audacity-build
 cd audacity-build
 
 # Run cmake (grab a coffee & a snack... this takes a while)
-cmake -G "Unix Makefiles" ../audacity -DCMAKE_BUILD_TYPE=Release
+cmake -G "Unix Makefiles" ../audacity -DCMAKE_BUILD_TYPE=Release $BULD_PORTABLE
 
 # build it 
 make -j`nproc`
@@ -106,7 +111,7 @@ source $WORKDIR/l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x
 cd $WORKDIR/audacity-build
 
 # and re-run cmake step (it will go faster this time)
-cmake -G "Unix Makefiles" ../audacity -DCMAKE_BUILD_TYPE=Release
+cmake -G "Unix Makefiles" ../audacity -DCMAKE_BUILD_TYPE=Release $BULD_PORTABLE
 
 # and re-run make command
 make -j`nproc`
@@ -193,51 +198,63 @@ wget https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/mode
 cd ..
 # copy models
 cd $WORKDIR
-sudo cp -R openvino-models /usr/local/lib/
+#sudo cp -r openvino-models /usr/local/lib/
+cp -r openvino-models $PORTABLE_INSTALL_DIR/lib
 }
-#portable installation
 
 portable_installation() {
+#install in $HOME
+cd $WORKDIR/audacity-build
+make install
+mkdir "$PORTABLE_INSTALL_DIR/bin/Portable Settings"
+
 cd $WORKDIR
-mkdir "$WORKDIR/audacity-build/Release/bin/Portable Settings"
-cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/* audacity-build/Release/lib/audacity
-cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/3rdparty/tbb/lib/* audacity-build/Release/lib/audacity
+cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/* $PORTABLE_INSTALL_DIR/lib/audacity
+cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/3rdparty/tbb/lib/* $PORTABLE_INSTALL_DIR/lib/audacity
+cp -r libtorch/lib/* $PORTABLE_INSTALL_DIR/lib/audacity
+cp whisper-build/installed/lib/libwhisper.so $PORTABLE_INSTALL_DIR/lib/audacity/libwhisper.so
+# rename libopenvino_intel_npu_plugin.so it sometimes causes a crash
+# remove comment in next line if you use a NPU
+mv $PORTABLE_INSTALL_DIR/lib/audacity/libopenvino_intel_npu_plugin.so $PORTABLE_INSTALL_DIR/lib/audacity/libopenvino_intel_npu_plugin.so.bak  
 # create terminal starter
-echo LD_LIBRARY_PATH=../lib/audacity ./audacity > $WORKDIR/audacity-build/Release/bin/start_audacity.sh
-chmod a+x $WORKDIR/audacity-build/Release/bin/start_audacity.sh
+echo LD_LIBRARY_PATH=../lib/audacity ./audacity > $PORTABLE_INSTALL_DIR/bin/start_audacity.sh
+chmod a+x $PORTABLE_INSTALL_DIR/bin/start_audacity.sh
 # create desktop starter
 cp $WORKDIR/audacity-build/src/audacity.desktop $HOME/.local/share/applications/audacity.desktop
-sed -i "s|Exec=env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 audacity %F|Exec=/usr/bin/env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 LD_LIBRARY_PATH=$WORKDIR/audacity-build/Release/lib/audacity $WORKDIR/audacity-build/Release/bin/audacity %F|g" $HOME/.local/share/applications/audacity.desktop
+sed -i "s|Exec=env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 audacity %F|Exec=/usr/bin/env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 LD_LIBRARY_PATH=$PORTABLE_INSTALL_DIR/lib/audacity $PORTABLE_INSTALL_DIR/bin/audacity %F|g" $HOME/.local/share/applications/audacity.desktop
+# copy icon files
+cp -r $PORTABLE_INSTALL_DIR/share/icons $HOME/.local/share
+
 }
+
 usr_local_installation() {
 # Install in /usr/local/lib
 cd $WORKDIR/audacity-build
 sudo make install
 # copy libs to /usr/local/lib
 cd $WORKDIR
-sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.4.0.16579.c3152d32c9c_x86_64/runtime/lib/intel64/* /usr/local/lib/audacity
+sudo sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/* /usr/local/lib/audacity.libs
+sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/3rdparty/tbb/lib/* /usr/local/lib/audacity.libs
+sudo cp -r libtorch/lib/* /usr/local/lib/audacity.libs
+sudo cp whisper-build/installed/lib/libwhisper.so /usr/local/lib/audacity.libs/libwhisper.so
+# rename libopenvino_intel_npu_plugin.so it sometimes causes a crash
+# remove comment in next line if you use a NPU
+sudo mv /usr/local/lib/audacity.libs/libopenvino_intel_npu_plugin.so /usr/local/lib/audacity.libs/libopenvino_intel_npu_plugin.so.bak
 sudo echo /usr/local/lib/audacity.libs > /etc/ld.so.conf.d/audacity.conf
 sudo ldconfig
-#additional libs. All required? Try it.
-#sudo cp -r libtorch/lib/* /usr/local/lib/audacity.libs
-#sudo cp -r whisper-build/libwhisper.so /usr/local/lib/audacity.libs/libwhisper.so
-#sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/ /usr/local/lib/audacity.libs
-#sudo cp -r l_openvino_toolkit_ubuntu22_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/* /usr/local/lib/audacity.libs
-#sudo echo /usr/local/lib/audacity.libs > /etc/ld.so.conf.d/audacity.conf
-#sudo ldconfig
 }
 #########################
 ## Program starts here ##
 #########################
 echo Build and install Audacity and OpenVINO plugin...
 build
-#echo Install Models...
-# In case of update oor rebuild comment next line
+# In case of update comment next two lines
+echo Install models. This takes a while...
 models_install
 echo portable installation
 portable_installation
 # or
 # usr_local_installation
 echo Done.
-echo Start the audacity binary with $WORKDIR/audacity-build/Release/bin/start_audacity.sh
+echo Start the audacity binary with $PORTABLE_INSTALL_DIR/bin/start_audacity.sh
 

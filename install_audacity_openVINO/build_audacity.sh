@@ -102,7 +102,6 @@ git checkout v3.6.4-R3.4
 cp -r openvino-plugins-ai-audacity/mod-openvino audacity/modules
 echo "add_subdirectory(mod-openvino)" >> audacity/modules/CMakeLists.txt
 source $WORKDIR/l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/setupvars.sh
-#source $WORKDIR/l_openvino_toolkit_ubuntu${VERSION}_2024.4.0.16579.c3152d32c9c_x86_64/setupvars.sh
 # cd back to the same Audacity folder you used to build Audacity before
 cd $WORKDIR/audacity-build
 

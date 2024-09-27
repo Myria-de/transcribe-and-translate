@@ -219,7 +219,7 @@ cd $WORKDIR
 sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.4.0.16579.c3152d32c9c_x86_64/runtime/lib/intel64/* /usr/local/lib/audacity
 sudo echo /usr/local/lib/audacity.libs > /etc/ld.so.conf.d/audacity.conf
 sudo ldconfig
-#additional libs. required? Try it.
+#additional libs. All required? Try it.
 #sudo cp -r libtorch/lib/* /usr/local/lib/audacity.libs
 #sudo cp -r whisper-build/libwhisper.so /usr/local/lib/audacity.libs/libwhisper.so
 #sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/ /usr/local/lib/audacity.libs

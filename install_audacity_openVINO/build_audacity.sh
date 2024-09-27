@@ -4,7 +4,7 @@
 # Ubuntu vesion 22 (jammy) or 24 (noble)
 VERSION=24
 AUDACITY_VERSION=3.6.4
-
+# check also openVINO version in line 101
 # Create workdir if not exist
 WORKDIR=$HOME/audacity
 if [ ! -e $WORKDIR ]
@@ -46,7 +46,6 @@ cd $WORKDIR
 # Clone it & check out specific tag
 git clone https://github.com/ggerganov/whisper.cpp
 cd whisper.cpp
-#git checkout v1.6.2
 git checkout v1.5.4
 cd ..
 
@@ -99,6 +98,7 @@ make -j`nproc`
 # Build OpenVINO plugin
 cd $WORKDIR
 git clone https://github.com/intel/openvino-plugins-ai-audacity.git
+git checkout v3.6.4-R3.4
 cp -r openvino-plugins-ai-audacity/mod-openvino audacity/modules
 echo "add_subdirectory(mod-openvino)" >> audacity/modules/CMakeLists.txt
 source $WORKDIR/l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/setupvars.sh

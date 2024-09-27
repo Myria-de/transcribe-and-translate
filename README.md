@@ -3,14 +3,17 @@
 ## Audacity 3.x und OpenVINO unter Linux (Ubuntu/Linux Mint)
 Erstellen Sie Audacity 3.x (https://github.com/audacity/audacity) mit dem OpenVINO-Plugin (https://github.com/intel/openvino-plugins-ai-audacity).
 
-Dafür verwenden Sie das Bash-Script "build_audacity.sh", das Sie in Ihr Home-Verzeichnis kopieren und starten:
+Dafür verwenden Sie das Bash-Script "build_audacity.sh".
+
+**Wichtig**: Passen Sie im Script hinter "VERSION" die Version des Betriebssystems an. Verwenden Sie "22" für Ubuntu 22.04 oder Linux Mint 21.x. Verwenden Sie "24" für Ubuntu 24.04 oder Linux Mint 22.x.
+
+Das Script lädt die KI-Modelle herunter und speichert Sie im Ordner "/usr/local/lib/openvino-models". Wenn Sie Audacity über das Script neu installieren oder aktualisieren, setzen Sie ein Kommentarzeichen ("#") vor die Zeile "models_install" im unteren Bereich des Scripts. Dann werden die umfangreichen Modelle nicht erneut installiert.
+
+Kopieren Sie das Script in Ihr Home-Verzeichnis und starten Sie es mit:
 
 ```
 sh ./build_audacity.sh
 ```
-
-**Wichtig**: Passen Sie im Script hinter "VERSION" die Version des Betriebssystems an. Verwenden Sie "22" für Ubuntu 22.04 oder Linux Mint 21.x. Verwenden Sie "24" für Ubuntu 24.04 oder Linux Mint 22.x.
-
 Das Script verwendet weitestgehend die Anleitung, die unter https://github.com/intel/openvino-plugins-ai-audacity/blob/main/doc/build_doc/linux/README.md zu finden ist.
 
 Hinter "AUDACITY_VERSION" passen Sie bei Bedarf die Audacity-Version an. Getestet habe ich das Script mit Audacity 3.6.4.

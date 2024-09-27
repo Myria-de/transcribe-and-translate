@@ -1,7 +1,7 @@
 #!/bin/bash
 # Audacity OpenVINO module build for Linux (Ubuntu 22.04/24.04)
 
-# Ubuntu vesion 22 (jammy) or 24 (noble)
+# Ubuntu version 22 (jammy) or 24 (noble)
 VERSION=24
 AUDACITY_VERSION=3.6.4
 # check also openVINO version in line 101

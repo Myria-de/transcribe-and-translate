@@ -20,7 +20,7 @@ Hinter "AUDACITY_VERSION" passen Sie bei Bedarf die Audacity-Version an. Geteste
 
 All Download URLs im Script sind Stand September 2024. Wenn neuere Versionen verfügbar sind, müssen Sie die Download-Adressen wahrscheinlich anpassen.
 
-Die Installation ist standardmäßig halbwegs portabel. Audacity lässt sich aus dem Ordner "audacity/audacity-build/Release/bin" über das Script "start_audacity.sh" starten. Ein Programmstarter für den Desktop erstellt das Script unter ".local/share/applications/audacity.desktop". Die AI-Modelle müssen jedoch im Ordner "/usr/local/lib/openvino-models" liegen. Für den Kopiervorgang werden root-Rechte angefordert.
+Die Installation ist standardmäßig halbwegs portabel. Audacity lässt sich im Home-Verzeichnis aus dem Ordner "Audacity.bin/bin" über das Script "start_audacity.sh" starten. Ein Programmstarter für den Desktop erstellt das Script unter ".local/share/applications/audacity.desktop". Die AI-Modelle werden in den Ordner "Audacity.bin/lib/openvino-models" entpackt.
 
 Nach dem ersten Start von Audacity gehen Sie auf "Bearbeiten -> Einstellungen -> Module". Hinter "mod-openvino" stellen Sie "Aktiviert" ein. Danach starten Sie Audacity neu. 
 

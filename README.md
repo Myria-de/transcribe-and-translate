@@ -1,15 +1,15 @@
 # Audio-Dateien transkribieren (Speech-to-Text) und übersetzen
 
 ## Audacity 3.x und OpenVINO unter Linux (Ubuntu/Linux Mint)
-Erstellen Sie Audacity 3.x (https://github.com/audacity/audacity) mit dem OpenVINO-Plugin (https://github.com/intel/openvino-plugins-ai-audacity).
+Erstellen Sie Audacity 3.x (https://github.com/audacity/audacity) mit dem OpenVINO-Plugin (https://github.com/intel/openvino-plugins-ai-audacity) unter Ubuntu/Linux Mint. Dafür verwenden Sie das Bash-Script "build_audacity.sh".
 
-Dafür verwenden Sie das Bash-Script "build_audacity.sh".
+Laden Sie das ZIP-Paket über "Code -> Download ZIP" herunter und entpacken Sie Archiv in Ihr Home-Verzeichnis.
 
 **Wichtig**: Passen Sie im Script hinter "VERSION" die Version des Betriebssystems an. Verwenden Sie "22" für Ubuntu 22.04 oder Linux Mint 21.x. Verwenden Sie "24" für Ubuntu 24.04 oder Linux Mint 22.x.
 
-Das Script lädt die KI-Modelle herunter und speichert Sie im Ordner "/usr/local/lib/openvino-models". Wenn Sie Audacity über das Script neu installieren oder aktualisieren, setzen Sie ein Kommentarzeichen ("#") vor die Zeile "models_install" im unteren Bereich des Scripts. Dann werden die umfangreichen Modelle nicht erneut installiert.
+Das Script lädt die KI-Modelle herunter und speichert Sie in Ihrem Home-Verzeichnis im Ordner "Audacity.bin/lib/openvino-models". Wenn Sie Audacity über das Script neu installieren oder aktualisieren, setzen Sie ein Kommentarzeichen ("#") vor die Zeile "models_install" im unteren Bereich des Scripts. Dann werden die umfangreichen Modelle nicht erneut installiert.
 
-Kopieren Sie das Script in Ihr Home-Verzeichnis und starten Sie es mit:
+Starten Sie das Script im Download-Verzeichnis mit
 
 ```
 sh ./build_audacity.sh

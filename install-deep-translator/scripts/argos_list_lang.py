@@ -1,4 +1,3 @@
-#!/home/te/python-trans/bin/python3
 import argostranslate.package, argostranslate.translate
 argostranslate.package.update_package_index()
 available_packages = argostranslate.package.get_available_packages()

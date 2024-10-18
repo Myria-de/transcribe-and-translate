@@ -1,4 +1,3 @@
-#!/home/te/python-trans/bin/python3
 # transcribe
 # https://github.com/openai/whisper
 # translate

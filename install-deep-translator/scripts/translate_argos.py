@@ -1,4 +1,3 @@
-#!/home/te/python-trans/bin/python3
 import os.path
 # set device
 # os.environ['ARGOS_DEVICE_TYPE'] = 'cpu'

@@ -1,4 +1,3 @@
-#!/home/te/python-trans/bin/python3
 #
 # Remove timestamps für Audacity transcriptions and translate
 #

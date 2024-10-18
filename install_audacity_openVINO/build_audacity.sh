@@ -11,12 +11,33 @@ PORTABLE_INSTALL_DIR=$HOME/Audacity.bin
 BULD_PORTABLE="-DCMAKE_INSTALL_PREFIX=$PORTABLE_INSTALL_DIR"
 # Create workdir if not exist
 WORKDIR=$HOME/audacity
+# say "yes" if you want to use a Intel GPU
+# otherwise say "no" (nvdia or other GPU chip)
+USE_INTEL_GPU="no"
+
 # Configuration end
 if [ ! -e $WORKDIR ]
 then 
 mkdir -p $WORKDIR
 fi
-
+# Intel tools 
+get_intel_runtime() {
+cd $WORKDIR
+mkdir intel_runtime
+cd intel_runtime
+wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.17537.20/intel-igc-core_1.0.17537.20_amd64.deb
+wget https://github.com/intel/intel-graphics-compiler/releases/download/igc-1.0.17537.20/intel-igc-opencl_1.0.17537.20_amd64.deb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-level-zero-gpu-dbgsym_1.3.30872.22_amd64.ddeb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-level-zero-gpu-legacy1-dbgsym_1.3.30872.22_amd64.ddeb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-level-zero-gpu-legacy1_1.3.30872.22_amd64.deb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-level-zero-gpu_1.3.30872.22_amd64.deb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-opencl-icd-dbgsym_24.35.30872.22_amd64.ddeb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-opencl-icd-legacy1-dbgsym_24.35.30872.22_amd64.ddeb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-opencl-icd-legacy1_24.35.30872.22_amd64.deb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/intel-opencl-icd_24.35.30872.22_amd64.deb
+wget https://github.com/intel/compute-runtime/releases/download/24.35.30872.22/libigdgmm12_22.5.0_amd64.deb
+sudo apt install ./*.deb
+}
 #**************************************
 #* Build OpenVINO module and Audacity *
 #**************************************
@@ -24,7 +45,11 @@ build() {
 
 #dependencies
 sudo apt update
-sudo apt -y install build-essential git ocl-icd-opencl-dev cmake python3-pip libgtk2.0-dev libasound2-dev libjack-jackd2-dev uuid-dev python3-venv git-lfs
+sudo apt -y install build-essential git ocl-icd-opencl-dev cmake python3-pip libgtk2.0-dev libasound2-dev libjack-jackd2-dev uuid-dev python3-venv git-lfs ffmpeg
+
+if [ "$USE_INTEL_GPU" == "yes" ]; then
+get_intel_runtime
+fi
 
 #OpenVINO
 cd $WORKDIR
@@ -117,7 +142,7 @@ cmake -G "Unix Makefiles" ../audacity -DCMAKE_BUILD_TYPE=Release $BULD_PORTABLE
 make -j`nproc`
 }
 
-models_install() {
+models_download() {
 #********************************
 #* OpenVINO Models Installation *
 #********************************
@@ -195,11 +220,7 @@ unzip deepfilternet-openvino/deepfilternet3.zip -d openvino-models
 cd openvino-models
 wget https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/noise-suppression-denseunet-ll-0001/FP16/noise-suppression-denseunet-ll-0001.xml
 wget https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/noise-suppression-denseunet-ll-0001/FP16/noise-suppression-denseunet-ll-0001.bin
-cd ..
-# copy models
-cd $WORKDIR
-#sudo cp -r openvino-models /usr/local/lib/
-cp -r openvino-models $PORTABLE_INSTALL_DIR/lib
+
 }
 
 portable_installation() {
@@ -224,24 +245,10 @@ cp $WORKDIR/audacity-build/src/audacity.desktop $HOME/.local/share/applications/
 sed -i "s|Exec=env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 audacity %F|Exec=/usr/bin/env GDK_BACKEND=x11 UBUNTU_MENUPROXY=0 LD_LIBRARY_PATH=$PORTABLE_INSTALL_DIR/lib/audacity $PORTABLE_INSTALL_DIR/bin/audacity %F|g" $HOME/.local/share/applications/audacity.desktop
 # copy icon files
 cp -r $PORTABLE_INSTALL_DIR/share/icons $HOME/.local/share
-
-}
-
-usr_local_installation() {
-# Install in /usr/local/lib
-cd $WORKDIR/audacity-build
-sudo make install
-# copy libs to /usr/local/lib
+cd ..
+# copy models
 cd $WORKDIR
-sudo sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/lib/intel64/* /usr/local/lib/audacity.libs
-sudo cp -r l_openvino_toolkit_ubuntu${VERSION}_2024.3.0.16041.1e3b88e4e3f_x86_64/runtime/3rdparty/tbb/lib/* /usr/local/lib/audacity.libs
-sudo cp -r libtorch/lib/* /usr/local/lib/audacity.libs
-sudo cp whisper-build/installed/lib/libwhisper.so /usr/local/lib/audacity.libs/libwhisper.so
-# rename libopenvino_intel_npu_plugin.so it sometimes causes a crash
-# remove comment in next line if you use a NPU
-sudo mv /usr/local/lib/audacity.libs/libopenvino_intel_npu_plugin.so /usr/local/lib/audacity.libs/libopenvino_intel_npu_plugin.so.bak
-sudo echo /usr/local/lib/audacity.libs > /etc/ld.so.conf.d/audacity.conf
-sudo ldconfig
+cp -r openvino-models $PORTABLE_INSTALL_DIR/lib
 }
 #########################
 ## Program starts here ##
@@ -249,12 +256,10 @@ sudo ldconfig
 echo Build and install Audacity and OpenVINO plugin...
 build
 # In case of update comment next two lines
-echo Install models. This takes a while...
-models_install
+echo Download models. This takes a while...
+models_download
 echo portable installation
 portable_installation
-# or
-# usr_local_installation
 echo Done.
 echo Start the audacity binary with $PORTABLE_INSTALL_DIR/bin/start_audacity.sh
 

@@ -23,8 +23,9 @@ if torch.cuda.is_available():
     device = "cuda"
 else:
     device = "cpu"
+#print('Using device: ' + device)
     # set argos device
-print('Using device:' + device)
+
 os.environ['ARGOS_DEVICE_TYPE'] = device
 import translate_argos
 
@@ -32,7 +33,7 @@ HOMEDIR = os.environ["HOME"]
 ####################
 ## Configuration ##
 ####################
-# directory containing audio files (mp3)
+# directory containing audio/video files (mp4, mp3, ...)
 Source_Path=HOMEDIR + "/Audio/ToTranscribe"
 # target path for your transcribed files (txt)
 Target_Path=HOMEDIR + "/Audio/Transcribed"
@@ -49,12 +50,12 @@ whisper_task="transcribe"
 # Download in "~./cache/whisper
 WhisperModel="medium"
 # output format
-format='txt' # or srt, vtt
+format='srt' # txt, srt, vtt
 # choose translator see https://github.com/nidhaloff/deep-translator
 #UseTranslator="GoogleTranslator" # or ChatGptTranslator requires API key
 UseTranslator="Argos"
 #ChatGPT API key https://platform.openai.com/account/api-keys
-gptkey="<your key here>"
+api_key="<your key here>"
 #######################
 ## Configuration end ##
 #######################
@@ -106,6 +107,7 @@ def translate_chunks(chunks,source_language,target_language):
 
 def translate_text(text,source_language,target_language):
     """Translate text"""
+    translator=translator_init(source_language, target_language)
     LIMIT = 4000
     if len(text) > LIMIT:
         print("File splitting required")
@@ -137,14 +139,14 @@ def has_timestamp(content: str) -> bool:
     return re.match(r"((\d\d:)\d\d).(\d{3}) --> ((\d\d:)\d\d).(\d{3})", content) is not None
 
 
-def translate(source_file, target_file,source_language,target_language):
+def translate(source_file, target_file, source_language, target_language, text_format):
     """Translate files"""
     print("translating...")
     #source_file=Target_Path + "/" + Path(fname).stem + "." + format
     #target_file=Target_Path + "/" + Path(fname).stem + ".translated." + UseTranslator +'.'+ target_language + '.' + format
     #print(target_file)
     translator=translator_init(source_language,target_language)
-    if format == 'vtt':
+    if text_format == 'vtt':
         source_file_content=get_content(source_file)
         with open(target_file, "w") as f:
             f.write("WEBVTT\n")
@@ -157,7 +159,7 @@ def translate(source_file, target_file,source_language,target_language):
                     text_translated=translate_text(x,source_language,target_language)
                     f.write(text_translated + "\n")
                 
-    elif format == 'srt':
+    elif text_format == 'srt':
         source_file_content=get_content(source_file)
         with open(target_file, "w") as f:
             was_empty_line = False
@@ -233,7 +235,7 @@ def main():
         target_file=Target_Path + "/" + Path(Source_Path + "/" + file).stem + ".translated." + UseTranslator +'.'+ target_language + '.' + format
         transcribe(Source_Path + "/" + file)
         if not whisper_task == "translate":
-            translate(source_file, target_file, source_language, target_language)
+            translate(source_file, target_file, source_language, target_language, format)
     print("done.")    
 
 if __name__ == '__main__':

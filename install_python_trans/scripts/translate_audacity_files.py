@@ -27,10 +27,11 @@ Target_Path=HOMEDIR + "/Audio/Transcribed/Audacity/Translated"
 source_language="en" #Argos/deep translator
 target_language="de" #Argos/deep translator
 # input format
-# srt translate srt files
+# srt, vtt translate srt, vtt files
 # or
 # txt remove timestamps from text files and translate
-format='txt'
+#format='txt'
+
 #######################
 ## Configuration end ##
 #######################
@@ -40,13 +41,35 @@ def get_content(filename):
     # you may also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
     return content
-    
+
+def has_timestamp(content: str) -> bool:
+    """Check if line is a timestamp vtt format
+    """
+    return re.match(r"((\d\d:)\d\d).(\d{3}) --> ((\d\d:)\d\d).(\d{3})", content) is not None    
+
+def translate_vtt_file(source_file, target_file, source_language, target_language):
+    """
+    read vtt file and translate 
+    """
+    source_file_content=get_content(source_file)
+    print("processing: " + source_file)
+    with open(target_file, "w") as f:
+        f.write("WEBVTT\n")
+        for x in source_file_content[1:]:
+            if has_timestamp(x):
+                f.write(x + "\n")
+            elif len(x) == 0:
+                f.write("\n")
+            else:
+                text_translated=transcribe_translate.translate_text(x,source_language,target_language)
+                f.write(text_translated + "\n")
+
 def translate_srt_file(source_file, target_file, source_language, target_language):
     """
     read srt file and translate 
     """
     source_file_content=get_content(source_file)
-    
+    print("processing: " + source_file)
     with open(target_file, "w") as f:
         was_empty_line = False
         was_id = False
@@ -74,17 +97,21 @@ def translate_srt_file(source_file, target_file, source_language, target_languag
                 print ("Processed %d / %d lines" % (counter, len(source_file_content)))
     
 def translate_txt_file(source_file, target_file, source_language, target_language):
+    """
+    read txt file and translate 
+    """
     with open(source_file,'r') as infile:
         column23 = [ cols[2:3] for cols in csv.reader(infile, delimiter="\t") ]
-        converted_file=Target_Path + "/" + Path(source_file).stem + ".converted." + format
+        converted_file=Target_Path + "/" + Path(source_file).stem + ".converted.txt"
+    #print(column23)
     with open(converted_file, "w") as f:
         for line in column23:
             txt="".join(line)
             f.write(f"{txt}\n")
-    target_file=Target_Path + "/" + Path(source_file).stem + ".translated." + target_language + '.' + format
-    target_file=Target_Path + "/" + Path(converted_file).stem + ".translated." +target_language + '.' + format
+    #target_file=Target_Path + "/" + Path(source_file).stem + ".translated." + target_language + '.txt' 
+    target_file=Target_Path + "/" + Path(converted_file).stem + ".translated." +target_language + '.txt'
     print("processing: " + converted_file) 
-    transcribe_translate.translate(converted_file, target_file, source_language, target_language) 
+    transcribe_translate.translate(converted_file, target_file, source_language, target_language, "txt") 
 
 ########### main program starts here ##################
 def main():
@@ -105,11 +132,32 @@ def main():
     #files.sort(reverse=False)
     # init translator
     #translator=transcribe_translate.translator_init(source_language, target_language)
+    files = [f for f in listdir(Source_Path) if isfile(join(Source_Path, f))]
+    files.sort(reverse=False)
+    for file in files:
+        filename, file_extension = os.path.splitext(Source_Path +'/'+ file )
+        translated_file=Target_Path + "/" + Path(file).stem + ".translated." + target_language + file_extension
+        source_file=Source_Path + '/' + file
+        #print(source_file)
+        
+        if file_extension == '.txt':
+            translate_txt_file(source_file, translated_file, source_language, target_language)
+        if file_extension == '.srt':
+            translate_srt_file(source_file, translated_file, source_language, target_language)
+        if file_extension == '.vtt':
+            translate_vtt_file(source_file, translated_file, source_language, target_language)
+
+        #print(translated_file)
+    quit()
+
+
     if format == "srt":
         path = f'{Source_Path}/*.srt'
     if format == "txt":
         path = f'{Source_Path}/*.txt'
-    files = glob.glob(path)    
+    if format == "vtt":
+        path = f'{Source_Path}/*.vtt'
+    files = glob.glob(path)
     
     for file in files:
         translated_file=Target_Path + "/" + Path(file).stem + ".translated." + target_language + '.' + format

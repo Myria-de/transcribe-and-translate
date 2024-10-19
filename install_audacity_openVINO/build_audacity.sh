@@ -1,13 +1,10 @@
 #!/bin/bash
 # Audacity OpenVINO module build for Linux (Ubuntu 22.04/24.04)
-
 # Configuraton
 # Ubuntu version 22 (jammy) or 24 (noble)
 VERSION=22
 AUDACITY_VERSION=3.6.4
 PORTABLE_INSTALL_DIR=$HOME/Audacity.bin
-# in case of an installation in /usr/local/lib leave the following variable empty
-# and change from portable_installation to usr_local_installation at the end of this script
 BULD_PORTABLE="-DCMAKE_INSTALL_PREFIX=$PORTABLE_INSTALL_DIR"
 # Create workdir if not exist
 WORKDIR=$HOME/audacity

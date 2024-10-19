@@ -24,7 +24,7 @@ if torch.cuda.is_available():
 else:
     device = "cpu"
     # set argos device
-
+print('Using device:' + device)
 os.environ['ARGOS_DEVICE_TYPE'] = device
 import translate_argos
 
@@ -49,7 +49,7 @@ whisper_task="transcribe"
 # Download in "~./cache/whisper
 WhisperModel="medium"
 # output format
-format='vtt' # or srt, vtt
+format='txt' # or srt, vtt
 # choose translator see https://github.com/nidhaloff/deep-translator
 #UseTranslator="GoogleTranslator" # or ChatGptTranslator requires API key
 UseTranslator="Argos"
@@ -231,7 +231,7 @@ def main():
         print("processing: " + file)
         source_file=Target_Path + "/" + Path(Source_Path + "/" + file).stem + "." + format
         target_file=Target_Path + "/" + Path(Source_Path + "/" + file).stem + ".translated." + UseTranslator +'.'+ target_language + '.' + format
-        #transcribe(Source_Path + "/" + file)
+        transcribe(Source_Path + "/" + file)
         if not whisper_task == "translate":
             translate(source_file, target_file, source_language, target_language)
     print("done.")    

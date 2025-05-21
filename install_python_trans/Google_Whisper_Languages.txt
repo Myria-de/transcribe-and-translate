@@ -1,0 +1,259 @@
+##### Google supported output languages #####
+Get language list:
+get_lang_list_google()
+afrikaans:af
+albanian:sq
+amharic:am
+arabic:ar
+armenian:hy
+assamese:as
+aymara:ay
+azerbaijani:az
+bambara:bm
+basque:eu
+belarusian:be
+bengali:bn
+bhojpuri:bho
+bosnian:bs
+bulgarian:bg
+catalan:ca
+cebuano:ceb
+chichewa:ny
+chinese (simplified):zh-CN
+chinese (traditional):zh-TW
+corsican:co
+croatian:hr
+czech:cs
+danish:da
+dhivehi:dv
+dogri:doi
+dutch:nl
+english:en
+esperanto:eo
+estonian:et
+ewe:ee
+filipino:tl
+finnish:fi
+french:fr
+frisian:fy
+galician:gl
+georgian:ka
+german:de
+greek:el
+guarani:gn
+gujarati:gu
+haitian creole:ht
+hausa:ha
+hawaiian:haw
+hebrew:iw
+hindi:hi
+hmong:hmn
+hungarian:hu
+icelandic:is
+igbo:ig
+ilocano:ilo
+indonesian:id
+irish:ga
+italian:it
+japanese:ja
+javanese:jw
+kannada:kn
+kazakh:kk
+khmer:km
+kinyarwanda:rw
+konkani:gom
+korean:ko
+krio:kri
+kurdish (kurmanji):ku
+kurdish (sorani):ckb
+kyrgyz:ky
+lao:lo
+latin:la
+latvian:lv
+lingala:ln
+lithuanian:lt
+luganda:lg
+luxembourgish:lb
+macedonian:mk
+maithili:mai
+malagasy:mg
+malay:ms
+malayalam:ml
+maltese:mt
+maori:mi
+marathi:mr
+meiteilon (manipuri):mni-Mtei
+mizo:lus
+mongolian:mn
+myanmar:my
+nepali:ne
+norwegian:no
+odia (oriya):or
+oromo:om
+pashto:ps
+persian:fa
+polish:pl
+portuguese:pt
+punjabi:pa
+quechua:qu
+romanian:ro
+russian:ru
+samoan:sm
+sanskrit:sa
+scots gaelic:gd
+sepedi:nso
+serbian:sr
+sesotho:st
+shona:sn
+sindhi:sd
+sinhala:si
+slovak:sk
+slovenian:sl
+somali:so
+spanish:es
+sundanese:su
+swahili:sw
+swedish:sv
+tajik:tg
+tamil:ta
+tatar:tt
+telugu:te
+thai:th
+tigrinya:ti
+tsonga:ts
+turkish:tr
+turkmen:tk
+twi:ak
+ukrainian:uk
+urdu:ur
+uyghur:ug
+uzbek:uz
+vietnamese:vi
+welsh:cy
+xhosa:xh
+yiddish:yi
+yoruba:yo
+zulu:zu
+"""
+#
+##### Whisper supported input languages #####
+#####     Output is always english      #####
+"""
+LANGUAGES = {
+    "en": "english",
+    "zh": "chinese",
+    "de": "german",
+    "es": "spanish",
+    "ru": "russian",
+    "ko": "korean",
+    "fr": "french",
+    "ja": "japanese",
+    "pt": "portuguese",
+    "tr": "turkish",
+    "pl": "polish",
+    "ca": "catalan",
+    "nl": "dutch",
+    "ar": "arabic",
+    "sv": "swedish",
+    "it": "italian",
+    "id": "indonesian",
+    "hi": "hindi",
+    "fi": "finnish",
+    "vi": "vietnamese",
+    "he": "hebrew",
+    "uk": "ukrainian",
+    "el": "greek",
+    "ms": "malay",
+    "cs": "czech",
+    "ro": "romanian",
+    "da": "danish",
+    "hu": "hungarian",
+    "ta": "tamil",
+    "no": "norwegian",
+    "th": "thai",
+    "ur": "urdu",
+    "hr": "croatian",
+    "bg": "bulgarian",
+    "lt": "lithuanian",
+    "la": "latin",
+    "mi": "maori",
+    "ml": "malayalam",
+    "cy": "welsh",
+    "sk": "slovak",
+    "te": "telugu",
+    "fa": "persian",
+    "lv": "latvian",
+    "bn": "bengali",
+    "sr": "serbian",
+    "az": "azerbaijani",
+    "sl": "slovenian",
+    "kn": "kannada",
+    "et": "estonian",
+    "mk": "macedonian",
+    "br": "breton",
+    "eu": "basque",
+    "is": "icelandic",
+    "hy": "armenian",
+    "ne": "nepali",
+    "mn": "mongolian",
+    "bs": "bosnian",
+    "kk": "kazakh",
+    "sq": "albanian",
+    "sw": "swahili",
+    "gl": "galician",
+    "mr": "marathi",
+    "pa": "punjabi",
+    "si": "sinhala",
+    "km": "khmer",
+    "sn": "shona",
+    "yo": "yoruba",
+    "so": "somali",
+    "af": "afrikaans",
+    "oc": "occitan",
+    "ka": "georgian",
+    "be": "belarusian",
+    "tg": "tajik",
+    "sd": "sindhi",
+    "gu": "gujarati",
+    "am": "amharic",
+    "yi": "yiddish",
+    "lo": "lao",
+    "uz": "uzbek",
+    "fo": "faroese",
+    "ht": "haitian creole",
+    "ps": "pashto",
+    "tk": "turkmen",
+    "nn": "nynorsk",
+    "mt": "maltese",
+    "sa": "sanskrit",
+    "lb": "luxembourgish",
+    "my": "myanmar",
+    "bo": "tibetan",
+    "tl": "tagalog",
+    "mg": "malagasy",
+    "as": "assamese",
+    "tt": "tatar",
+    "haw": "hawaiian",
+    "ln": "lingala",
+    "ha": "hausa",
+    "ba": "bashkir",
+    "jw": "javanese",
+    "su": "sundanese",
+    "yue": "cantonese",
+
+# language code lookup by name, with a few language aliases
+    "burmese": "my",
+    "valencian": "ca",
+    "flemish": "nl",
+    "haitian": "ht",
+    "letzeburgesch": "lb",
+    "pushto": "ps",
+    "panjabi": "pa",
+    "moldavian": "ro",
+    "moldovan": "ro",
+    "sinhalese": "si",
+    "castilian": "es",
+    "mandarin": "zh",
+"""
+
+

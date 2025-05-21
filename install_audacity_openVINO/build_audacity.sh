@@ -1,9 +1,16 @@
 #!/bin/bash
 # Audacity OpenVINO module build for Linux (Ubuntu 22.04/24.04)
-# Configuraton
+################
+# Configuraton #
+################
 # Ubuntu version 22 (jammy) or 24 (noble)
 VERSION=22
-AUDACITY_VERSION=3.6.4
+if [[ -z $VERSION ]]
+then
+echo "Bitte tragen Sie die Version des Systems ein: 22|24."
+exit 1
+fi
+AUDACITY_VERSION=3.7.3
 PORTABLE_INSTALL_DIR=$HOME/Audacity.bin
 BULD_PORTABLE="-DCMAKE_INSTALL_PREFIX=$PORTABLE_INSTALL_DIR"
 # Create workdir if not exist
@@ -11,8 +18,12 @@ WORKDIR=$HOME/audacity
 # say "yes" if you want to use a Intel GPU
 # otherwise say "no" (nvdia or other GPU chip)
 USE_INTEL_GPU="no"
-
-# Configuration end
+# say "yes" if you want to use a Intel NPU
+# otherwise say "no"
+USE_NPU="yes"
+######################
+# Configuration end ##
+######################
 if [ ! -e $WORKDIR ]
 then 
 mkdir -p $WORKDIR
@@ -233,7 +244,9 @@ cp -r libtorch/lib/* $PORTABLE_INSTALL_DIR/lib/audacity
 cp whisper-build/installed/lib/libwhisper.so $PORTABLE_INSTALL_DIR/lib/audacity/libwhisper.so
 # rename libopenvino_intel_npu_plugin.so it sometimes causes a crash
 # remove comment in next line if you use a NPU
+if [ ! "$USE_NPU" == "yes" ]; then
 mv $PORTABLE_INSTALL_DIR/lib/audacity/libopenvino_intel_npu_plugin.so $PORTABLE_INSTALL_DIR/lib/audacity/libopenvino_intel_npu_plugin.so.bak  
+fi
 # create terminal starter
 echo LD_LIBRARY_PATH=../lib/audacity ./audacity > $PORTABLE_INSTALL_DIR/bin/start_audacity.sh
 chmod a+x $PORTABLE_INSTALL_DIR/bin/start_audacity.sh

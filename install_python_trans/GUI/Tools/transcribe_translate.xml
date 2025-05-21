@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CONFIG>
+  <TApplication>
+    <Form1 edtAPIKEY_Text="" chkTrans_Checked="0" edtSubFormat_Text="srt" cmbModel_ItemIndex="3" cmbTrans_ItemIndex="1" edtSourceLang_Text="en" edtTargetLang_Text="de" FileNameEdit1_FileName="" DirectoryEdit1_Directory="/home/te/Videos/Transcribed/" edtWhisperSourceLang_Text="en"/>
+  </TApplication>
+</CONFIG>

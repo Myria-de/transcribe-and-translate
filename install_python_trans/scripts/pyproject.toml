@@ -1,0 +1,35 @@
+[project]
+name = "transcribe-translate"
+version = "0.2.0"
+description = ""
+authors = [
+    {name = "Thorsten Eggeling",email = "info@myria.de"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "deep-translator",
+ "deep-translator[docx]",
+ "deep-translator[pdf]",
+ "deep-translator[ai]",
+ "semantic-text-splitter",
+ "openai-whisper",
+ "argostranslate",
+ "argostranslategui",
+ "configparser" 
+]
+
+[tool.poetry]
+packages = [{include = "transcribe_translate", from = "src"}]
+
+[project.scripts]
+transcribe_translate_cli = 'transcribe_translate.transcribe_and_translate_cli:main'
+transcribe_translate = 'transcribe_translate.transcribe_and_translate:main'
+translate_audacity_files = 'transcribe_translate.translate_audacity_files:main'
+
+#[tool.poetry.scripts]
+#transcribe_translate_cli = { reference = "transcribe_translate_cli.py", type = "console" }
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

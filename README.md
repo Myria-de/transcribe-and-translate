@@ -41,7 +41,7 @@ Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "ins
 
 Die Variable "Source_Path" legt den Ordner fest, in dem die Audio-Dateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Weitere Variablen bestimmen die Zielsprache und das Ausagabeformat (in der Regel "txt"). Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfoldern aber mehr RAM, Platz auf der Festplatte und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen ausreichen.
 
-Für die Übersetzung ist GoogleTranslator vorkonfiguriert. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert. Zu den Einzelheiten und weiteren Onlin-Übersetzern siehe https://github.com/nidhaloff/deep-translator.
+Für die Übersetzung ist GoogleTranslator vorkonfiguriert. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert. Zu den Einzelheiten und weiteren Online-Übersetzern siehe https://github.com/nidhaloff/deep-translator.
 
 Starten Sie das Script im Installationsorder ("deep-translator/bin") mit
 ```

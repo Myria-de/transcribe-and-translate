@@ -37,6 +37,8 @@ Für die Transkription einer in Audacity geöffneten Audio-Datei markieren Sie d
 ## Transkribieren und übersetzen mit Whisper und deep-translator
 Wer mehrere Audio-Dateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
 
+Das **Komplettpaket** für Linux und Windows inklusive vorkompilierter Python-Binärdateien  können Sie über https://tinyurl.com/STTPYS herunterladen.
+
 Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "install-deep-translator.sh". Das Script richtet die nötigen Pakete ein. In der Python-Umgebung erledigt das Script "transcribe_translate.py" die Aufgabe. Öffnen Sie es zuerst in einem Editor und passen Sie die Konfiguration an. Kommentare im Script erläutern die Konfiguration.
 
 Die Variable "Source_Path" legt den Ordner fest, in dem die Audio-Dateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Weitere Variablen bestimmen die Zielsprache und das Ausagabeformat (in der Regel "txt"). Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfoldern aber mehr RAM, Platz auf der Festplatte und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen ausreichen.

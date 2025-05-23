@@ -57,6 +57,7 @@ transcribe_translate --help
 liefert eine Liste der Optionen mit Erklärung.
 
 Die grafische Oberfläche sollte selbsterklärend sein. Sie erwartet die Binärdateien im Unterverzeichnis "Tools/Linux" beziehungsweise "Tools/Windows". Alternativ geben Sie unter "Python-Client-Tool" die selbst kompiliert Datei "python-trans/bin/transcribe_translate_cli" an. Diese startet schneller, arbeitet ansonsten aber genauso schnell wie das kompilierte Komplettpaket.
+![206_05_Trans-Gui](https://github.com/user-attachments/assets/b8e24270-e791-4d56-9ac6-049a2cd23a96)
 
 **Python-Scripts selbst erstellen**
 
@@ -77,6 +78,7 @@ Hinter "UseTranslator" geben Sie den gewünschten Übersetzer an. "Argos" arbeit
 Der Ordner "build_python_bin" enthält ein Script, mit dem Sie die Python-Binärdateien erstellen können. Das Script verwendet Pyinstaller.
 Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.
 Im Ordner "Subtitle-Demo" finden Sie das Script "demo.sh". Es transkribiert die englischsprachige Videodatei aus dem Ordner "ToTranscribe", das Ergebnis inklusive deutscher Übersetzung wird im Ordner "Transcribed" gespeichert.
+
 
 
 

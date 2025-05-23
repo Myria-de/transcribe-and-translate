@@ -41,19 +41,44 @@ Für die Transkription einer in Audacity geöffneten Audio-Datei markieren Sie d
 ## Transkribieren und übersetzen mit Whisper und deep-translator
 Wer mehrere Audio-Dateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
 
-Das **Komplettpaket** für Linux und Windows inklusive vorkompilierter Python-Binärdateien  können Sie über https://tinyurl.com/STTPYS herunterladen.
+**Komplettpaket verwenden**
+Das Komplettpaket für Linux und Windows inklusive vorkompilierter Python-Binärdateien können Sie über https://tinyurl.com/STTPYS herunterladen. Die Datei ist mit gut 6 GB recht groß, weil zahlreiche Programmbibliotheken enthalten sind. Wenn Sie diesen Download verwenden, müssen Sie die Python-Umgebung nicht selbst erzeugen, wie nachfolgend beschrieben.
 
-Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "install-deep-translator.sh". Das Script richtet die nötigen Pakete ein. In der Python-Umgebung erledigt das Script "transcribe_translate.py" die Aufgabe. Öffnen Sie es zuerst in einem Editor und passen Sie die Konfiguration an. Kommentare im Script erläutern die Konfiguration.
+Im Ordner "install_python_trans/GUI/Tools/linux" beziehungsweise "install_python_trans/GUI/Tools/windows" liegt das Programm transcribe_and_translate_cli(.exe). Es handelt sich um ein Kommandozeilen-Tool, mit dem sich Audio- und Videodateien transkribieren und übersetzen lassen. Sie können es für die Automatisierung der Prozesse verwenden oder Sie nutzen die grafische Oberfläche aus dem Ordner "install_python_trans/GUI (transcribe_translate, transcribe_translate.exe).
 
-Die Variable "Source_Path" legt den Ordner fest, in dem die Audio-Dateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Weitere Variablen bestimmen die Zielsprache und das Ausagabeformat (in der Regel "txt"). Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfoldern aber mehr RAM, Platz auf der Festplatte und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen ausreichen.
-
-Für die Übersetzung ist GoogleTranslator vorkonfiguriert. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert. Zu den Einzelheiten und weiteren Online-Übersetzern siehe https://github.com/nidhaloff/deep-translator.
-
-Starten Sie das Script im Installationsorder ("deep-translator/bin") mit
+Ein Beispielaufruf sieht so aus:
 ```
-./transcribe_translate.py
+transcribe_translate "file.mp4" -o "Transcribed" --source_lang en --target_lang de --translator "Argos" -f srt
 ```
-Beim ersten Start lädt Whisper das konfigurerte Modell herunter. Danach transkribiert das Script die Audio-Dateien aus dem Quellordner und speichert die übersetzten Dateien im Zielordner.
+Der Start mit 
+```
+transcribe_translate --help
+```
+liefert eine Liste der Optionen mit Erklärung.
+
+Die grafische Oberfläche sollte selbsterklärend sein. Sie erwartet die Binärdateien im Unterverzeichnis "Tools/Linux" beziehungsweise "Tools/Windows". Alternativ geben Sie unter "Python-Client-Tool" die selbst kompiliert Datei "python-trans/bin/transcribe_translate_cli" an. Diese startet schneller, arbeitet ansonsten aber genauso schnell wie das kompilierte Komplettpaket.
+
+**Python-Scrips selbst erstellen**
+
+Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "install-python-scripts.sh". Das Script richtet die nötigen Pakete ein.
+Sie können dann entweder
+ - transcribe_translate_cli nutzen und über Optionen steuern
+oder
+- transcribe_translate verwenden, das die Optionen aus der Datei " transcribe_translate_config.ini" erhält. Öffnen Sie die INI-Datei in einem Editor und passen Sie die Konfiguration an. Die Kommentare erläutern die Konfiguration.
+
+"Source_Path" legt den Ordner fest, in dem die Audio-/Videodateien liegen, deren Inhalt Sie in eine schriftliche Form bringen möchten. "Target_Path" gibt den Zielordner für die resultierenden Textdateien an. Diese Pfadangaben erfolgen mit vorangestelltem "/", das Script ergänzt später den Pfad zum Home-Verzeichnis, sodass sich beispielsweise "/home/user/python-trans/bin/Subtitle-Demo/ToTranscribe" ergibt. Aus "Source_Path" werden alle darin befindlichen Dateien verarbeitet. Stellen Sie daher sicher, dass sich im Ordner nur geeignete Dateien befinden (MP4, MP3, etc.).
+
+Alternativ verwenden Sie die Variablen "ABS_Source_Path" und "ABS_Target_Path", die Vorrang haben. Tragen Sie den gewünschten absoluten Pfad ein, beispielsweise "/media/user/Laufwerk/ToTranscribe".
+Weitere Variablen bestimmen die Zielsprache und das Ausgabeformat, etwa "txt" für ein Manuskript oder "srt" für eine Untertiteldatei. Hinter "WhisperModel" legen Sie das gewünschte OpenAI-Whisper-Model fest. Größere Modelle liefern meist bessere Ergebnisse, erfordern aber mehr (V)RAM sowie Platz auf der Festplatte und sind langsamer. Die Voreinstellung "medium" sollte in den meisten Fällen geeignet sein. Bei der ersten Nutzung laden die Python-Scripte das konfigurierte Whisper-Modell herunter.
+
+Hinter "UseTranslator" geben Sie den gewünschten Übersetzer an. "Argos" arbeitet lokal und ohne Cloud-Dienst, liefert aber nicht immer zufriedenstellende Ergebnisse. Als bessere Alternative bietet sich "GoogleTranslator" an. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert. Zu den Einzelheiten und weiteren Online-Übersetzern siehe https://github.com/nidhaloff/deep-translator.
+
+**Weitere Ordner und Dateien:**
+Der Ordner "build_python_bin" enthält ein Script, mit dem Sie die Python-Binärdateien erstellen können. Das Script verwendet Pyinstaller.
+Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.
+Im Ordner "Subtitle-Demo" finden Sie das Script "demo.sh". Es transkribiert die englischsprachige Videodatei aus dem Ordner "ToTranscribe", das Ergebnis inklusive deutscher Übersetzung wird im Ordner "Transcribed" gespeichert.
+
+
 
 
 

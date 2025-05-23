@@ -81,7 +81,7 @@ Hinter "UseTranslator" geben Sie den gewünschten Übersetzer an. "Argos" arbeit
 
 - Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.
 - Im Ordner "Subtitle-Demo" finden Sie das Script "demo.sh". Es transkribiert die englischsprachige Videodatei aus dem Ordner "ToTranscribe", das Ergebnis inklusive deutscher Übersetzung wird im Ordner "Transcribed" gespeichert.
-- Der Ordner "HTML-Demo" enthält ein Beispiel wie man Video-Untertitel in ein Video einbindet, das sich im Browser abspielen lässt. Das Beispiel funktioniert nur auf einem Webserver. Sie können es sich über https://m6u.de/VTTDEM ansehen.
+- Der Ordner "HTML-Demo" enthält ein Beispiel für ein Web-Video mit Untertiteln. Das Beispiel funktioniert nur beim Aufruf von einem Webserver. Sie können es sich über https://m6u.de/VTTDEM ansehen.
 
 
 

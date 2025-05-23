@@ -58,7 +58,7 @@ liefert eine Liste der Optionen mit Erklärung.
 
 Die grafische Oberfläche sollte selbsterklärend sein. Sie erwartet die Binärdateien im Unterverzeichnis "Tools/Linux" beziehungsweise "Tools/Windows". Alternativ geben Sie unter "Python-Client-Tool" die selbst kompiliert Datei "python-trans/bin/transcribe_translate_cli" an. Diese startet schneller, arbeitet ansonsten aber genauso schnell wie das kompilierte Komplettpaket.
 
-**Python-Scrips selbst erstellen**
+**Python-Scripts selbst erstellen**
 
 Die Installation in einer virtuellen Python-Umgebung erfolgt mit dem Script "install-python-scripts.sh". Das Script richtet die nötigen Pakete ein.
 Sie können dann entweder

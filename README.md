@@ -77,9 +77,12 @@ Hinter "UseTranslator" geben Sie den gewünschten Übersetzer an. "Argos" arbeit
 **Bitte beachten Sie:** Whisper versteht viele Sprachen und transkribiert den Text in der Ausgangssprache der Audio- oder Videodatei. Whisper kann auch übersetzen, allerdings nur in die englische Sprache. Argos (https://github.com/argosopentech/argos-translate) beherrscht einige Sprachen, kann aber in der Regel nicht zwischen zwei fremden (nicht englischen) Sprachen übersetzen.  Für die Übersetzung etwa von Deutsch -> Spanisch ist der Umweg Deutsch -> Englisch -> Spanisch erforderlich. Die Python-Scripte richten die erforderlichen Sprachdateien automatisch ein. Google-Translator kennt diese Einschränkung nicht und kann daher direkt übersetzen.
 
 **Weitere Ordner und Dateien:**
-Der Ordner "build_python_bin" enthält ein Script, mit dem Sie die Python-Binärdateien erstellen können. Das Script verwendet Pyinstaller.
-Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.
-Im Ordner "Subtitle-Demo" finden Sie das Script "demo.sh". Es transkribiert die englischsprachige Videodatei aus dem Ordner "ToTranscribe", das Ergebnis inklusive deutscher Übersetzung wird im Ordner "Transcribed" gespeichert.
+- Der Ordner "build_python_bin" enthält ein Script, mit dem Sie die Python-Binärdateien erstellen können. Das Script verwendet Pyinstaller.
+
+- Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.
+- Im Ordner "Subtitle-Demo" finden Sie das Script "demo.sh". Es transkribiert die englischsprachige Videodatei aus dem Ordner "ToTranscribe", das Ergebnis inklusive deutscher Übersetzung wird im Ordner "Transcribed" gespeichert.
+- Der Ordner "HTML-Demo" enthält ein Beispiel wie man Video-Untertitel in ein Video einbindet, das sich im Browser abspielen lässt. Das Beispiel funktioniert nur auf einem Webserver. Sie können es sich über https://m6u.de/VTTDEM ansehen.
+
 
 
 

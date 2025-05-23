@@ -4,7 +4,7 @@
 # Configuraton #
 ################
 # Ubuntu version 22 (jammy) or 24 (noble)
-VERSION=22
+VERSION=
 if [[ -z $VERSION ]]
 then
 echo "Bitte tragen Sie die Version des Systems ein: 22|24."

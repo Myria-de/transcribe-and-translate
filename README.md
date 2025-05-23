@@ -1,4 +1,8 @@
 # Audio-Dateien transkribieren (Speech-to-Text) und übersetzen
+**Inhalt:**
+
+1. [Audacity 3.x und OpenVINO unter Linux (Ubuntu/Linux Mint)](#audacity-3x-und-openvino-unter-linux-ubuntulinux-mint)
+2. [Transkribieren und übersetzen mit Whisper und deep-translator (Python-Script)](#transkribieren-und-%C3%BCbersetzen-mit-whisper-und-deep-translator)
 
 ## Audacity 3.x und OpenVINO unter Linux (Ubuntu/Linux Mint)
 Erstellen Sie Audacity 3.x (https://github.com/audacity/audacity) mit dem OpenVINO-Plugin (https://github.com/intel/openvino-plugins-ai-audacity) unter Ubuntu/Linux Mint. Dafür verwenden Sie das Bash-Script "build_audacity.sh".

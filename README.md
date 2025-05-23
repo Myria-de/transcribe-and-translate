@@ -74,6 +74,8 @@ Weitere Variablen bestimmen die Zielsprache und das Ausgabeformat, etwa "txt" f�
 
 Hinter "UseTranslator" geben Sie den gewünschten Übersetzer an. "Argos" arbeitet lokal und ohne Cloud-Dienst, liefert aber nicht immer zufriedenstellende Ergebnisse. Als bessere Alternative bietet sich "GoogleTranslator" an. Sie können auch ChatGptTranslator verwenden, was aber einen kostenpflichtigen API-Key erfordert. Zu den Einzelheiten und weiteren Online-Übersetzern siehe https://github.com/nidhaloff/deep-translator.
 
+**Bitte beachten Sie:** Whisper versteht viel Sprachen und transkribiert den Text in der Ausgangssprache der Audio- oder Videodatei. Whisper kann auch übersetzen,, allerdings nur in die englische Sprache. Argos (https://github.com/argosopentech/argos-translate) beherrscht einige Sprachen, kann aber in der Regel nicht zwischen zwei fremden (nicht englischen) Sprachen übersetzen.  Für die Übersetzung etwa von Deutsch -> Spanisch ist der Umweg Deutsch -> Englisch -> Spanisch erforderlich. Die Python-Scripte richten die erforderlichen Sprachdateien automatisch ein. Google-Translator kennt diese Einschränkung nicht und kann daher direkt übersetzen.
+
 **Weitere Ordner und Dateien:**
 Der Ordner "build_python_bin" enthält ein Script, mit dem Sie die Python-Binärdateien erstellen können. Das Script verwendet Pyinstaller.
 Der Ordner "scripts" enthält den Quellcode der Python-Dateien. Das Bash-Script "build.sh" erzeugt eine Python-Wheel-Datei für die Installation. Dafür muss das Python-Tool Poetry installiert sein.

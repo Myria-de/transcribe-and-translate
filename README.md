@@ -1,4 +1,4 @@
-# Audio-Dateien transkribieren (Speech-to-Text) und übersetzen
+# Audiodateien transkribieren (Speech-to-Text) und übersetzen
 **Inhalt:**
 
 1. [Audacity 3.x und OpenVINO unter Linux (Ubuntu/Linux Mint)](#audacity-3x-und-openvino-unter-linux-ubuntulinux-mint)

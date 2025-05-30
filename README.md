@@ -42,7 +42,7 @@ Für die Transkription einer in Audacity geöffneten Audiodatei markieren Sie di
 Wer mehrere Audidateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
 
 **Komplettpaket verwenden**
-Das Komplettpaket für Linux und Windows inklusive vorkompilierter Python-Binärdateien können Sie über https://tinyurl.com/STTPYS herunterladen (unter Windows mit 7-Zip entpacken). Die Datei ist mit gut 6 GB recht groß, weil zahlreiche Programmbibliotheken enthalten sind. Wenn Sie diesen Download verwenden, müssen Sie die Python-Umgebung nicht selbst erzeugen, wie nachfolgend beschrieben.
+Das Komplettpaket für Linux und Windows inklusive vorkompilierter Python-Binärdateien können Sie über https://tinyurl.com/STTPYS herunterladen (unter Windows mit 7-Zip entpacken). Die Datei ist mit einem Inhalt von gut 6 GB recht groß (Download 3,7 GB), weil zahlreiche Programmbibliotheken enthalten sind. Wenn Sie diesen Download verwenden, müssen Sie die Python-Umgebung nicht selbst erzeugen, wie nachfolgend beschrieben.
 
 Im Ordner "install_python_trans/GUI/Tools/linux" beziehungsweise "install_python_trans/GUI/Tools/windows" liegt das Programm transcribe_and_translate_cli(.exe). Es handelt sich um ein Kommandozeilen-Tool, mit dem sich Audio- und Videodateien transkribieren und übersetzen lassen. Sie können es für die Automatisierung der Prozesse verwenden oder Sie nutzen die grafische Oberfläche aus dem Ordner "install_python_trans/GUI (transcribe_translate, transcribe_translate.exe).
 

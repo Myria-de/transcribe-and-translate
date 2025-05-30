@@ -48,11 +48,11 @@ Im Ordner "install_python_trans/GUI/Tools/linux" beziehungsweise "install_python
 
 Ein Beispielaufruf sieht so aus:
 ```
-transcribe_translate "file.mp4" -o "Transcribed" --source_lang en --target_lang de --translator "Argos" -f srt
+transcribe_and_translate "file.mp4" -o "Transcribed" --source_lang en --target_lang de --translator "Argos" -f srt
 ```
 Der Start mit 
 ```
-transcribe_translate --help
+transcribe_and_translate --help
 ```
 liefert eine Liste der Optionen mit Erklärung.
 

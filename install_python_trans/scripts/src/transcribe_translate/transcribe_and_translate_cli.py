@@ -109,7 +109,7 @@ def translate_text(text,source_language,target_language,UseTranslator, gpt_key,t
     return translated
 
 def get_content(filename):
-    with open(filename) as f:
+    with open(filename,encoding='utf-8') as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
@@ -131,7 +131,7 @@ def translate(source_file, target_file, source_language, target_language, text_f
     translator=translator_init(source_language,target_language,UseTranslator, gpt_key)
     if text_format == 'vtt':
         source_file_content=get_content(source_file)
-        with open(target_file, "w") as f:
+        with open(target_file, "w", encoding='utf-8') as f:
             f.write("WEBVTT\n")
             for x in source_file_content[1:]:
                 if has_timestamp(x):
@@ -144,7 +144,7 @@ def translate(source_file, target_file, source_language, target_language, text_f
                 
     elif text_format == 'srt':
         source_file_content=get_content(source_file)
-        with open(target_file, "w") as f:
+        with open(target_file, "w",encoding='utf-8') as f:
             was_empty_line = False
             was_id = False
             counter = 0
@@ -170,7 +170,7 @@ def translate(source_file, target_file, source_language, target_language, text_f
              
         LIMIT = 4000
         # translate and save file
-        with open(source_file, "r") as f:
+        with open(source_file, "r",encoding='utf-8') as f:
             content = f.read()
         if len(content) > LIMIT:
             print("File splitting required")
@@ -179,7 +179,7 @@ def translate(source_file, target_file, source_language, target_language, text_f
                 translated = translate_argos.translate_batch(chunks,source_language, target_language)
             else:    
                 translated = translator.translate_batch(chunks)
-            with open(target_file, "a") as f:
+            with open(target_file, "a", encoding='utf-8') as f:
                 for part in translated:
                     f.write(part)
         else:
@@ -187,7 +187,7 @@ def translate(source_file, target_file, source_language, target_language, text_f
                 translated = translate_argos.translate_text(content, source_language, target_language)
             else:
                 translated = translator.translate(text=content)
-            with open(target_file, "w") as f:
+            with open(target_file, "w", encoding='utf-8') as f:
                 f.write(translated)
                 
 def get_lang_list_google():
@@ -214,6 +214,8 @@ def main():
     parser.add_argument("--translator","-r", type=str, default="GoogleTranslator", help = "translator to use")
     parser.add_argument("--api_key","-a", type=str, default="", help = "api key chatgpt")
     parser.add_argument("--translate_only","-n",  action='store_true', default=False, help = "translation only")
+    parser.add_argument("--transcribe_only","-c",  action='store_true', default=False, help = "transcribe only")
+
     args = parser.parse_args().__dict__
     Source_Files=args["files"]
     Target_Path=(args["output_directory"].rstrip(os.sep))
@@ -227,6 +229,8 @@ def main():
     api_key=args["api_key"]
     api_key=args["api_key"]
     translate_only=args["translate_only"]
+    transcribe_only=args["transcribe_only"]
+
     if not os.path.exists(Target_Path):
         print('Error: The path ' + Target_Path + ' does not exist. Please check the configuration.')
         sys.exit(1)    
@@ -236,7 +240,7 @@ def main():
             transcribed_file=transcribe(file, Target_Path, WhisperModel, source_language_whisper, whisper_task,format)
         else:
             transcribed_file = os.path.join(Target_Path, Path(file).stem)+"." + format
-        if not UseTranslator == "":
+        if transcribe_only != True:
             if not whisper_task == "translate":
                 translated_file=os.path.join(Target_Path, Path(file).stem) + ".translated." + UseTranslator +'.'+ target_language + '.' + format
                 translate(transcribed_file, translated_file, source_language, target_language, format,UseTranslator,api_key)

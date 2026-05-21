@@ -20,7 +20,7 @@ if [ "$USE_NPU" == "yes" ]
 then
 $WORKDIR/bin/pip3 install intel_npu_acceleration_library
 fi
-$WORKDIR/bin/pip3 install transcribe_translate-0.2.0-py3-none-any.whl
+$WORKDIR/bin/pip3 install transcribe_translate-0.2.1-py3-none-any.whl
 
 cp scripts/src/transcribe_translate/transcribe_translate_config.ini $WORKDIR/bin
 cp scripts/src/transcribe_translate/translate_audacity_config.ini $WORKDIR/bin

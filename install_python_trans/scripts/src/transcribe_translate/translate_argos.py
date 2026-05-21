@@ -67,7 +67,7 @@ def translate_text(text, from_lang, to_lang):
 
 def translate_text_and_save(text, target_file, from_lang, to_lang):
     translated = argostranslate.translate.translate(text, from_lang, to_lang)
-    with open(target_file, "w") as f:
+    with open(target_file, "w",encoding='utf-8') as f:
         f.write(translated)
 
 def translate_file(file_name, target_file, from_lang, to_lang):
@@ -102,7 +102,7 @@ def main():
             parent_path = out_dir
             target_file=parent_path + "/" + Path(file_path).stem + ".translated." + lang_to_code + '.txt'
             
-        with open(file_path, "r") as f:
+        with open(file_path, "r",encoding='utf-8') as f:
              content = f.read()
              translate_text_and_save(content, target_file, lang_from_code, lang_to_code)
 

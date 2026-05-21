@@ -48,7 +48,7 @@ target_language=cfg.get('Settings', 'target_language')
 ## Configuration end ##
 #######################
 def get_content(filename):
-    with open(filename) as f:
+    with open(filename,encoding='utf-8') as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
@@ -65,7 +65,7 @@ def translate_vtt_file(source_file, target_file, source_language, target_languag
     """
     source_file_content=get_content(source_file)
     print("processing: " + source_file)
-    with open(target_file, "w") as f:
+    with open(target_file, "w",encoding='utf-8') as f:
         f.write("WEBVTT\n")
         for x in source_file_content[1:]:
             if has_timestamp(x):
@@ -82,7 +82,7 @@ def translate_srt_file(source_file, target_file, source_language, target_languag
     """
     source_file_content=get_content(source_file)
     print("processing: " + source_file)
-    with open(target_file, "w") as f:
+    with open(target_file, "w",encoding='utf-8') as f:
         was_empty_line = False
         was_id = False
         counter = 0
@@ -112,7 +112,7 @@ def translate_txt_file(source_file, target_file, source_language, target_languag
     """
     read txt file and translate 
     """
-    with open(source_file,'r') as infile:
+    with open(source_file,'r',encoding='utf-8') as infile:
         column23 = [ cols[2:3] for cols in csv.reader(infile, delimiter="\t") ]
         converted_file=Target_Path + "/" + Path(source_file).stem + ".converted.txt"
     

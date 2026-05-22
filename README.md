@@ -42,11 +42,11 @@ Für die Transkription einer in Audacity geöffneten Audiodatei markieren Sie di
 Wer mehrere Audidateien automatisch transkribieren und übersetzen möchte, verwendet dafür OpenAI-Whisper (https://github.com/openai/whisper) und deep-translator (https://github.com/nidhaloff/deep-translator).
 
 **Komplettpaket verwenden**
-Das Komplettpaket für Linux und Windows inklusive vorkompilierter Python-Binärdateien können Sie über https://tinyurl.com/STTPYS herunterladen (unter Windows mit 7-Zip entpacken). Die Datei ist mit einem Inhalt von gut 6 GB recht groß (Download 3,7 GB), weil zahlreiche Programmbibliotheken enthalten sind. Wenn Sie diesen Download verwenden, müssen Sie die Python-Umgebung nicht selbst erzeugen, wie nachfolgend beschrieben.
+Wer die Python-Module nicht selbst einrichten möchte, kann die vorkompilierten Python-Binärdateien verwenden (Download Linux: https://m6u.de/TTLIN, Windows: https://m6u.de/TTWIN).Die Dateien sind mit mehr als 2GB recht groß, weil zahlreiche Programmbibliotheken enthalten sind. Wenn Sie diesen Download verwenden, müssen Sie die Python-Umgebung nicht selbst erzeugen, wie nachfolgend beschrieben.
 
-Im Ordner "install_python_trans/GUI/Tools/linux" beziehungsweise "install_python_trans/GUI/Tools/windows" liegt das Programm transcribe_and_translate_cli(.exe). Es handelt sich um ein Kommandozeilen-Tool, mit dem sich Audio- und Videodateien transkribieren und übersetzen lassen. Sie können es für die Automatisierung der Prozesse verwenden oder Sie nutzen die grafische Oberfläche aus dem Ordner "install_python_trans/GUI (transcribe_translate, transcribe_translate.exe).
+Nach dem Entpacken können Sie "transcribe_and_translate_cli(.exe)" verwenden. Es handelt sich um ein Kommandozeilen-Tool, mit dem sich Audio- und Videodateien transkribieren und übersetzen lassen. Sie können es für die Automatisierung der Prozesse verwenden oder Sie nutzen die grafische Oberfläche aus dem Ordner "install_python_trans/GUI (transcribe_translate, transcribe_translate.exe). Laden Sie die grafische Oberfläche alleine über https://m6u.de/TTGUI herunter. Den Download der Binärdateien kopieren Sie in den Ordner "Tools\linux" beziehungsweise "Tools\windows"
 
-Ein Beispielaufruf sieht so aus:
+Ein Beispielaufruf des Kommandozeilen-Tools sieht so aus:
 ```
 transcribe_and_translate "file.mp4" -o "Transcribed" --source_lang en --target_lang de --translator "Argos" -f srt
 ```
@@ -56,7 +56,7 @@ transcribe_and_translate --help
 ```
 liefert eine Liste der Optionen mit Erklärung.
 
-Die grafische Oberfläche sollte selbsterklärend sein. Sie erwartet die Binärdateien im Unterverzeichnis "Tools/Linux" beziehungsweise "Tools/Windows". Alternativ geben Sie unter "Python-Client-Tool" die selbst kompiliert Datei "python-trans/bin/transcribe_translate_cli" an. Diese startet schneller, arbeitet ansonsten aber genauso schnell wie das kompilierte Komplettpaket.
+Die grafische Oberfläche sollte selbsterklärend sein. Sie erwartet die Binärdateien im Unterverzeichnis "Tools/linux" beziehungsweise "Tools/windows". Alternativ geben Sie unter "Python-Client-Tool" die selbst kompiliert Datei "python-trans/bin/transcribe_translate_cli" an. Diese startet schneller, arbeitet ansonsten aber genauso schnell wie das kompilierte Komplettpaket.
 ![206_05_Trans-Gui](https://github.com/user-attachments/assets/b8e24270-e791-4d56-9ac6-049a2cd23a96)
 
 **Python-Scripts selbst erstellen**

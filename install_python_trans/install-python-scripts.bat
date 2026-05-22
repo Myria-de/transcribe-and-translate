@@ -3,8 +3,8 @@ REM  deep-translator
 REM  see https://github.com/nidhaloff/deep-translator
 REM Python for Windows -> https://www.python.org/downloads/windows
 
-set PATH="%USERPROFILE%\AppData\Local\Programs\Python\Python310";%PATH%
-set PYTHON="%USERPROFILE%\AppData\Local\Programs\Python\Python310\python.exe"
+set PATH="%USERPROFILE%\AppData\Local\Programs\Python\Python312";%PATH%
+set PYTHON="%USERPROFILE%\AppData\Local\Programs\Python\Python312\python.exe"
 set WORKDIR=%USERPROFILE%\python-trans
 set CURDIR=%~dp0
 cd /D %CURDIR%
@@ -24,16 +24,16 @@ REM CPU only
 REM %WORKDIR%\Scripts\pip3 install torch torchvision torchaudio
 echo Installing transcribe_translate...
 set PIP_USE_PEP517=1
-%WORKDIR%\Scripts\pip3 install transcribe_translate-0.2.0-py3-none-any.whl
+REM Install transcribe_translate
+%WORKDIR%\Scripts\pip3 install transcribe_translate-0.2.1-py3-none-any.whl
 echo Copy additional files...
 copy scripts\src\transcribe_translate\transcribe_translate_config.ini %WORKDIR%\Scripts
 copy scripts\src\transcribe_translate\translate_audacity_config.ini %WORKDIR%\Scripts
-xcopy  /e/i/s/c Subtitle-Demo %WORKDIR%\Scripts\Subtitle-Demo
-xcopy  /e/i/s/c GUI %WORKDIR%\Scripts\GUI
+xcopy  /e/i/s/c Subtitle-Demo %WORKDIR%\Subtitle-Demo
+xcopy  /e/i/s/c GUI %WORKDIR%\GUI
 REM copy ffmpeg needed by Whisper
 REM Get newer ffmpeg from https://github.com/BtbN/FFmpeg-Builds/releases
-copy ffmpeg\ffmpeg.exe %WORKDIR%\Scripts\ffmpeg.exe
-copy ffmpeg\ffmpeg.exe %WORKDIR%\Scripts\GUI\Tools\windows\ffmpeg.exe
+xcopy  /e/i/s/c ffmpeg %WORKDIR%\ffmpeg
 goto :eof
 REM ##########################
 :start

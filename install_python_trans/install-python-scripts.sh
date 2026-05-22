@@ -24,8 +24,8 @@ $WORKDIR/bin/pip3 install transcribe_translate-0.2.1-py3-none-any.whl
 
 cp scripts/src/transcribe_translate/transcribe_translate_config.ini $WORKDIR/bin
 cp scripts/src/transcribe_translate/translate_audacity_config.ini $WORKDIR/bin
-cp -r Subtitle-Demo $WORKDIR/bin/
-cp -r GUI $WORKDIR/bin/
+cp -r Subtitle-Demo $WORKDIR/
+cp -r GUI $WORKDIR/
 }
 install_packages
 install_transcribe_translate
